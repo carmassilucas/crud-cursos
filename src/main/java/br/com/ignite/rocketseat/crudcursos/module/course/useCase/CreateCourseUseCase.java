@@ -18,6 +18,6 @@ public class CreateCourseUseCase {
                 .active(true)
                 .build();
 
-        return repository.save(course);
+        return this.repository.save(course);
     }
 }
