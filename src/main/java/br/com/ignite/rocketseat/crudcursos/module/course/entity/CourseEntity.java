@@ -1,9 +1,7 @@
 package br.com.ignite.rocketseat.crudcursos.module.course.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import br.com.ignite.rocketseat.crudcursos.module.course.enumeration.Active;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,7 +24,9 @@ public class CourseEntity {
 
     private String name;
     private String category;
-    private Boolean active;
+
+    @Enumerated(EnumType.STRING)
+    private Active active;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
