@@ -3,10 +3,7 @@ package br.com.ignite.rocketseat.crudcursos.module.course.controller;
 import br.com.ignite.rocketseat.crudcursos.module.course.dto.CreateCourseRequestDto;
 import br.com.ignite.rocketseat.crudcursos.module.course.dto.ListCourseRequestDto;
 import br.com.ignite.rocketseat.crudcursos.module.course.dto.UpdateCourseRequestDto;
-import br.com.ignite.rocketseat.crudcursos.module.course.useCase.CreateCourseUseCase;
-import br.com.ignite.rocketseat.crudcursos.module.course.useCase.DeleteCourseUseCase;
-import br.com.ignite.rocketseat.crudcursos.module.course.useCase.ListCourseUseCase;
-import br.com.ignite.rocketseat.crudcursos.module.course.useCase.UpdateCourseUseCase;
+import br.com.ignite.rocketseat.crudcursos.module.course.useCase.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +25,9 @@ public class CourseController {
 
     @Autowired
     private DeleteCourseUseCase deleteCourseUseCase;
+
+    @Autowired
+    private ActiveCourseUseCase activeCourseUseCase;
 
     @PostMapping
     public ResponseEntity<Object> create(@Valid @RequestBody CreateCourseRequestDto dto) {
@@ -56,6 +56,16 @@ public class CourseController {
         try {
             this.deleteCourseUseCase.execute(id);
             return ResponseEntity.ok().build();
+        } catch (Exception exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+    }
+
+    @PatchMapping("/{id}/active")
+    public ResponseEntity<Object> active(@PathVariable UUID id) {
+        try {
+            var course = this.activeCourseUseCase.execute(id);
+            return ResponseEntity.ok().body(course);
         } catch (Exception exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
