@@ -2,6 +2,7 @@ package br.com.ignite.rocketseat.crudcursos.module.course.controller;
 
 import br.com.ignite.rocketseat.crudcursos.module.course.dto.CreateCourseRequestDto;
 import br.com.ignite.rocketseat.crudcursos.module.course.useCase.CreateCourseUseCase;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +17,7 @@ public class CourseController {
     private CreateCourseUseCase createCourseUseCase;
 
     @PostMapping
-    public ResponseEntity<Object> create(@RequestBody CreateCourseRequestDto dto) {
+    public ResponseEntity<Object> create(@Valid @RequestBody CreateCourseRequestDto dto) {
         var course = this.createCourseUseCase.execute(dto);
         return ResponseEntity.ok().body(course);
     }
