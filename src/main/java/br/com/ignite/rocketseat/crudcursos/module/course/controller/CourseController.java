@@ -32,7 +32,7 @@ public class CourseController {
     @PostMapping
     public ResponseEntity<Object> create(@Valid @RequestBody CreateCourseRequestDto dto) {
         var course = this.createCourseUseCase.execute(dto);
-        return ResponseEntity.ok().body(course);
+        return ResponseEntity.status(201).body(course);
     }
 
     @GetMapping
